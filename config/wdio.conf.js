@@ -2,14 +2,18 @@ const path = require('path');
 
 exports.config = {
     runner: 'local',
-    specs: ['../tests/**/*.js'],
+    maxInstances: 1,
+    specs: ['../tests/**/*.test.js'],
     capabilities: [{
         maxInstances: 1,
         'appium:platformName': 'Android',
         'appium:deviceName': 'emulator-5554',
+        'appium:platformVersion': '11.0',
+        'appium:appPackage': 'com.wdiodemoapp',
+        'appium:appActivity': 'com.wdiodemoapp/.MainActivity',
         'appium:automationName': 'UIAutomator2',
         'appium:app':  path.resolve(__dirname, '../app/app-demo.apk'),
-        'appium:autoGrantPermissions': true
+        'appium:autoGrantPermissions': true,
     }],
     services: [
         ['appium', {

@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","8241","Verifica login com sucesso","","Sat Feb 01 18:25:13 BRT 2025","passed","Sat Feb 01 18:25:21 BRT 2025","","Login válido","",""
+"","7856","Verifica login com a password inválida","","Sat Feb 01 18:24:58 BRT 2025","passed","Sat Feb 01 18:25:06 BRT 2025","","Login inválido","",""
+"","8796","Verifica login com o email inválido","","Sat Feb 01 18:24:39 BRT 2025","passed","Sat Feb 01 18:24:47 BRT 2025","","Login inválido","",""

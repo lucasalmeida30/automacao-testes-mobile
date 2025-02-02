@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"bd0de033e758fef39d03e07eded5c197","name":"Login inválido","statistic":{"failed":0,"broken":0,"skipped":0,"passed":2,"unknown":0,"total":2}},{"uid":"3fa5b0bd700b2e9fc9baaa978c4cd620","name":"Login válido","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}

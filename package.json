@@ -4,13 +4,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run wdio.conf.js",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/webdriverio": "^4.13.3",
     "@wdio/allure-reporter": "^9.6.3",
     "@wdio/appium-service": "^9.7.2",
     "@wdio/cli": "^9.7.2",
