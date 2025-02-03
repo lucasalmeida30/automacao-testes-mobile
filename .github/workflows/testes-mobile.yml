@@ -27,32 +27,38 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      # 5. Configurar o Android SDK e o Emulador
+      # 5. Configurar o Android SDK
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
 
+      # 6. Instalar o Android Emulator
       - name: Install Android Emulator
         run: |
           sdkmanager --install "emulator"
           sdkmanager --install "system-images;android-30;google_apis;x86"
           echo "no" | avdmanager create avd -n android-emu -k "system-images;android-30;google_apis;x86" --force
 
-      # 6. Iniciar o Emulador
+      # 7. Adicionar emulador ao PATH
+      - name: Add emulator to PATH
+        run: |
+          echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
+
+      # 8. Iniciar o Emulador
       - name: Start Android Emulator
         run: |
           emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader_indirect &
           adb wait-for-device
           adb devices
 
-      # 7. Executar os testes
+      # 9. Executar os testes
       - name: Run tests
         run: npm test
 
-      # 8. Gerar relatórios do Allure
+      # 10. Gerar relatórios do Allure
       - name: Generate Allure Report
         run: npm run allure-report
 
-      # 9. Publicar o relatório do Allure como artefato
+      # 11. Publicar o relatório do Allure como artefato
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
