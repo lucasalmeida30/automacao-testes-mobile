@@ -46,26 +46,25 @@ jobs:
       # 8. Iniciar o Emulador
       - name: Start Android Emulator
         run: |
-          emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader -no-accel &
+          emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader_indirect -no-accel &
           adb wait-for-device
-          adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+          adb devices
 
-      # 9. Verificar se o Appium está rodando
-      - name: Check if Appium is running
+      - name: Start Appium manually
         run: |
-           appium --relaxed-security --address localhost --port 4723 --log appium.log &
-           sleep 10 # Aguarda 10 segundos para o Appium iniciar
-           curl http://localhost:4723/session/status
+          appium --relaxed-security --address localhost --port 4723 --log appium.log &
+          sleep 10 # Aguarda 10 segundos para o Appium iniciar
+          curl http://localhost:4723/status
 
-      # 10. Executar os testes
+      # 9. Executar os testes
       - name: Run tests
-        run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
+        run:  npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
 
-      # 11. Gerar relatórios do Allure
+      # 10. Gerar relatórios do Allure
       - name: Generate Allure Report
         run: npm run allure-report
 
-      # 12. Publicar o relatório do Allure como artefato 
+      # 11. Publicar o relatório do Allure como artefato
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
