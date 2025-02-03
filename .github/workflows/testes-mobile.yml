@@ -1,4 +1,4 @@
-name: CI - Testes Mobile
+name: Mobile Tests CI
 
 on:
   push:
@@ -9,47 +9,51 @@ on:
       - main
 
 jobs:
-  e2e:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout do repositório
-      - name: Checkout do código
+      # 1. Checkout do código
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Configurar Node.js
-      - name: Configurar Node.js
+      # 3. Instalar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 3. Instalar dependências
-      - name: Instalar dependências
+      # 4. Instalar dependências do npm
+      - name: Install npm dependencies
         run: npm install
 
-      # 4. (Opcional) Instalar ADB, caso não esteja disponível
-      - name: Instalar ADB
-        run: sudo apt-get update && sudo apt-get install -y adb
+      # 5. Configurar o Android SDK e o Emulador
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
 
-      # 5. Iniciar Emulador Android e Executar Testes
-      - name: Iniciar Emulador Android e Executar Testes
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          arch: x86_64
-          profile: pixel_4
-          emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
-          disable-animations: true
-          script: npx wdio ./wdio.conf.js
+      - name: Install Android Emulator
+        run: |
+          sdkmanager --install "system-images;android-30;google_apis;x86"
+          echo "no" | avdmanager create avd -n android-emu -k "system-images;android-30;google_apis;x86" --force
 
-      # 6. Gerar relatório Allure
-      - name: Gerar relatório Allure
-        run: npx allure generate allure-results --clean -o allure-report
+      # 6. Iniciar o Emulador
+      - name: Start Android Emulator
+        run: |
+          emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader_indirect &
+          adb wait-for-device
+          adb devices
 
-      # 7. Publicar relatório Allure como artefato
-      - name: Publicar relatório Allure
+      # 7. Executar os testes
+      - name: Run tests
+        run: npm test
+
+      # 8. Gerar relatórios do Allure
+      - name: Generate Allure Report
+        run: npm run allure-report
+
+      # 9. Publicar o relatório do Allure como artefato
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
-          path: allure-report
+          path: allure-report/

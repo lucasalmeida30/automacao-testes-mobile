@@ -21,7 +21,9 @@ exports.config = {
             args: {
                 relaxedSecurity: true,
                 address: 'localhost',
-                port: 4723
+                port: 4723,
+                log: './appium.log',
+                logLevel: 'debug'
             }
         }]
     ],
@@ -31,9 +33,13 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
+    waitforTimeout: 60000, 
+    connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,
     afterTest: async function(test, context, { error }) {
         if (error) {
-            await browser.takeScreenshot();
+            const screenshotPath = `./allure-results/screenshots/${test.title.replace(/ /g, '_')}.png`;
+            await browser.saveScreenshot(screenshotPath);
         }
     },
     allure: {
