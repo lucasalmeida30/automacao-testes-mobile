@@ -70,11 +70,11 @@ jobs:
           sleep 20 # Aguarda um tempo extra para evitar falhas
           curl -s http://localhost:4723/status
         
-      - name: Wait for Emulator to be ready
-        run: |
-          adb wait-for-device
-          sleep 20
-          adb shell input keyevent 82  # Desbloqueia a tela do emulador  
+      # - name: Wait for Emulator to be ready
+      #   run: |
+      #     adb wait-for-device
+      #     sleep 20
+      #     adb shell input keyevent 82  # Desbloqueia a tela do emulador  
       # 9. Executar os testes
       - name: Run tests
         run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
