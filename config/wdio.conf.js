@@ -14,8 +14,8 @@ exports.config = {
           projectName: "automacao-testes-mobile",
           buildName: "Testes Mobile",
           sessionName: "Teste Home",
-          automationName: 'UIAutomator2',
         },
+        automationName: 'UIAutomator2',
         platformName: 'Android',
         'appium:app': 'bs://e06572b51d7fdcdb83e0c96cef61d1688017fd11',  // <-- Vai pegar o APP_ID depois
         'appium:autoGrantPermissions': true
