@@ -17,48 +17,57 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 3. Instalar Node.js
+      # 2. Instalar Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 4. Instalar dependências do npm
+      # 3. Instalar dependências do npm
       - name: Install npm dependencies
         run: npm install
 
-      # 5. Configurar o Android SDK
+      # 4. Configurar o Android SDK
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
 
-      # 6. Instalar o Android Emulator
+      # 5. Instalar o Android Emulator
       - name: Install Android Emulator
         run: |
           sdkmanager --install "emulator"
           sdkmanager --install "system-images;android-30;google_apis;x86"
           echo "no" | avdmanager create avd -n android-emu -k "system-images;android-30;google_apis;x86" --force
 
-      # 7. Adicionar emulador ao PATH
+      # 6. Adicionar emulador ao PATH
       - name: Add emulator to PATH
         run: |
           echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
 
-      # 8. Iniciar o Emulador
+      # 7. Iniciar o Emulador
       - name: Start Android Emulator
         run: |
           emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader_indirect -no-accel &
           adb wait-for-device
           adb devices
 
-      - name: Start Appium manually
+      # **NOVO: Instalar o Appium**
+      - name: Install Appium
+        run: npm install -g appium
+
+      # **NOVO: Verificar se o Appium foi instalado**
+      - name: Check Appium Version
+        run: appium -v
+
+      # 8. Iniciar o Appium
+      - name: Start Appium Server
         run: |
-          appium --relaxed-security --address localhost --port 4723 --log appium.log &
-          sleep 10 # Aguarda 10 segundos para o Appium iniciar
-          curl http://localhost:4723/session
+          nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
+          sleep 10 # Aguarda um tempo extra para evitar falhas
+          curl http://localhost:4723/wd/hub/status || exit 1 # Verifica se o Appium iniciou corretamente
 
       # 9. Executar os testes
       - name: Run tests
-        run:  npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
+        run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
 
       # 10. Gerar relatórios do Allure
       - name: Generate Allure Report
