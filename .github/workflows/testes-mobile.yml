@@ -53,6 +53,7 @@ jobs:
       # **NOVO: Instalar o Appium**
       - name: Install Appium
         run: npm install -g appium
+             appium driver install uiautomator2
 
       # **NOVO: Verificar se o Appium foi instalado**
       - name: Check Appium Version
