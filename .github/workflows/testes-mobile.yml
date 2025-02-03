@@ -64,11 +64,11 @@ jobs:
         run: appium -v
 
       # 8. Iniciar o Appium
-      - name: Start Appium Server
-        run: |
-          nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
-          sleep 20 # Aguarda um tempo extra para evitar falhas
-          curl -s http://localhost:4723/status
+      # - name: Start Appium Server
+      #   run: |
+      #     nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
+      #     sleep 20 # Aguarda um tempo extra para evitar falhas
+      #     curl -s http://localhost:4723/status
         
       # - name: Wait for Emulator to be ready
       #   run: |
