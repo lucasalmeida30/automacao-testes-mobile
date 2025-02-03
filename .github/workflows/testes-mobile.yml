@@ -63,7 +63,7 @@ jobs:
         run: |
           nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
           sleep 10 # Aguarda um tempo extra para evitar falhas
-          curl http://localhost:4723/wd/hub/status || exit 1 # Verifica se o Appium iniciou corretamente
+          curl http://localhost:4723/status || exit 1 # Verifica se o Appium iniciou corretamente
 
       # 9. Executar os testes
       - name: Run tests
