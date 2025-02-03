@@ -9,7 +9,7 @@ describe('WebView', () => {
         await expect(WebViewPage.menuWeb).toExist();
         await expect(WebViewPage.menuWeb).toBeDisplayed();
 
-        await WebViewPage.btnPesquisar.waitForExist;
+        await WebViewPage.btnPesquisar.waitForDisplayed({ timeout: 5000 });
         await expect(WebViewPage.btnPesquisar).toExist();
         await expect(WebViewPage.btnPesquisar).toBeDisplayed();
         
