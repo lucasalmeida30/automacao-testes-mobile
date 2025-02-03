@@ -1,0 +1,63 @@
+name: CI - Testes Mobile
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      # 2. Configurar Node.js (ajuste a versão conforme seu projeto)
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # 3. Instalar dependências
+      - name: Instalar dependências
+        run: npm install
+
+      # 4. Instalar e configurar Android SDK e iniciar o Emulador Android
+      # Usando a action reactivecircus/android-emulator-runner para facilitar a configuração do emulador
+      - name: Iniciar Emulador Android
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30                     # Ajuste para a API que seu app necessita
+          target: google_apis               # Ou outro target compatível
+          arch: x86_64                      # Arquitetura do emulador
+          profile: Nexus_5X                 # Perfil do dispositivo; ajuste se necessário
+          emulator-options: -no-window -gpu swiftshader_indirect
+          disable-animations: true
+
+      # 5. Iniciar o Appium (caso não queira usar o serviço embutido)
+      # Como o seu arquivo de configuração já inicia o Appium via service, você pode optar por rodar os testes diretamente.
+      #
+      # Se preferir iniciar o Appium em uma etapa separada, seria necessário iniciar o Appium em background e garantir que ele fique
+      # disponível antes da execução dos testes. Contudo, como no seu caso o WebdriverIO já faz isso pelo serviço "appium", esse passo pode ser omitido.
+
+      # 6. Executar os testes com WebdriverIO
+      - name: Executar testes com WebdriverIO
+        run: npx wdio ./wdio.conf.js --spec ./tests
+
+      # 7. Gerar relatório Allure
+      # Se os resultados já estão sendo gerados na pasta "allure-results" via configuração do WDIO,
+      # você pode gerar o relatório e publicá-lo como artefato.
+      - name: Gerar relatório Allure
+        run: npx allure generate allure-results --clean -o allure-report
+
+      # 8. Publicar relatório Allure como artefato
+      - name: Publicar relatório Allure
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report
