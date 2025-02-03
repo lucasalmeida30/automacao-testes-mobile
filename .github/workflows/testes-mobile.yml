@@ -33,6 +33,7 @@ jobs:
 
       - name: Install Android Emulator
         run: |
+          sdkmanager --install "emulator"
           sdkmanager --install "system-images;android-30;google_apis;x86"
           echo "no" | avdmanager create avd -n android-emu -k "system-images;android-30;google_apis;x86" --force
 
