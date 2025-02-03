@@ -44,3 +44,14 @@ jobs:
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: npx wdio config/wdio.conf.js
+
+      - name: Gerar relatório Allure
+        run: npx allure generate allure-results --clean -o allure-report
+
+
+      - name: Upload do relatório Allure como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retention-days: 7 
