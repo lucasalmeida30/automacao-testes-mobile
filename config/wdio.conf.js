@@ -14,6 +14,7 @@ exports.config = {
         'appium:automationName': 'UIAutomator2',
         'appium:app':  path.resolve(__dirname, '../app/app-demo.apk'),
         'appium:autoGrantPermissions': true,
+        'appium:ignoreHiddenApiPolicyError': true
     }],
     services: [
         ['appium', {
