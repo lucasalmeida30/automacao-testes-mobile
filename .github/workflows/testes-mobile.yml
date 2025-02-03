@@ -53,7 +53,9 @@ jobs:
       # 9. Verificar se o Appium está rodando
       - name: Check if Appium is running
         run: |
-          curl http://localhost:4723/status
+           appium --relaxed-security --address localhost --port 4723 --log appium.log &
+           sleep 10 # Aguarda 10 segundos para o Appium iniciar
+           curl http://localhost:4723/session/status
 
       # 10. Executar os testes
       - name: Run tests
