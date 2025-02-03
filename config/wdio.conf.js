@@ -1,4 +1,4 @@
-const path = require('path');
+// const path = require('path');
 // const appPath = path.resolve(__dirname, '../app/app-demo.apk');
 
 // console.log('Caminho do APK:', appPath);
@@ -6,22 +6,22 @@ exports.config = {
     runner: 'local',
     maxInstances: 1,
     specs: ['../tests/**/*.test.js'],
-    capabilities: [{
-        'bstack:options': {
-          osVersion: "11.0",
-          deviceName: "Samsung Galaxy S21",
-          realMobile: true,
-          projectName: "automacao-testes-mobile",
-          buildName: "Testes Mobile",
-          sessionName: "Teste Home",
-          'appium:automationName': 'UIAutomator2',
-        },
-        platformName: 'Android',
-        'appium:app': 'bs://e06572b51d7fdcdb83e0c96cef61d1688017fd11',  // <-- Vai pegar o APP_ID depois
-        'appium:autoGrantPermissions': true
-      }],
 
     services: ['browserstack'],
+
+    capabilities: [
+        {
+            'appium:automationName': 'UiAutomator2',
+            'appium:deviceName': 'Samsung Galaxy S23',
+            'appium:platformVersion': '13.0',
+            platformName: 'Android',
+            'appium:app': 'bs://e06572b51d7fdcdb83e0c96cef61d1688017fd11',
+            'appium:appPackage': 'com.wdiodemoapp',
+            'appium:autoGrantPermissions': true,
+            'appium:browserstack.debug': true
+        }
+    ],
+
     user: process.env.BROWSERSTACK_USERNAME || 'lucasalmeidagome_pxcEhB',
     key: process.env.BROWSERSTACK_ACCESS_KEY || 'NVxE8qJTDAYU5RmDeh16',
 
