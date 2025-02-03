@@ -1,38 +1,46 @@
-name: Testes Mobile no BrowserStack
+name: Mobile Automation Tests
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: browser
+    environment: browser  # Nome do ambiente criado no GitHub
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-    - name: Instalar dependências
-      run: npm install
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-    - name: Fazer upload do APK para o BrowserStack
-      env:
-        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-      run: |
-        response=$(curl -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
-          -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F "file=@app/app-demo.apk")
-        app_id=$(echo $response | jq -r '.app_url')
-        echo "APP_ID=$app_id" >> $GITHUB_ENV
+      - name: Instalar dependências
+        run: npm install
 
-    - name: Rodar os testes no BrowserStack
-      env:
-        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-      run: npx wdio config/wdio.conf.js
+      - name: Definir permissões para Appium
+        run: chmod +x ./node_modules/.bin/appium
+
+      - name: Fazer upload do APK para o BrowserStack
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: |
+          response=$(curl -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+            -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+            -F "file=@app/app-demo.apk")
+          app_id=$(echo $response | jq -r '.app_url')
+          echo "APP_ID=$app_id" >> $GITHUB_ENV
+  
+      # - name: Verificar variáveis de ambiente (debug)
+      #   run: echo "Username: $BROWSERSTACK_USERNAME, Access Key: $BROWSERSTACK_ACCESS_KEY"
+
+      - name: Executar testes no BrowserStack
+        env:
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: npx wdio config/wdio.conf.js
