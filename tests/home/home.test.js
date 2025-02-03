@@ -16,6 +16,8 @@ describe('Home', () => {
         await expect(HomePage.descTexto).toBeDisplayed();
         await expect(HomePage.descTexto).toHaveText('Demo app for the appium-boilerplate');
 
+        await browser.saveScreenshot('./screenshots/home/paginaHome.png');
+
 
     });
 

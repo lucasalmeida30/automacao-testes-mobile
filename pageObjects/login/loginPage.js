@@ -1,6 +1,6 @@
 class LoginPage {
    
-    get btnGoToLogin() {
+    get btnAcessarLogin() {
         return $('//android.widget.TextView[@text="Login"]');
     }
 
@@ -16,8 +16,8 @@ class LoginPage {
         return $('//android.view.ViewGroup[@content-desc="button-LOGIN"]/android.view.ViewGroup'); 
     }
 
-    async goToLogin() {
-        await this.btnGoToLogin.click();
+    async AcessarLogin() {
+        await this.btnAcessarLogin.click();
     }
 
     async loginApp(email, password) {

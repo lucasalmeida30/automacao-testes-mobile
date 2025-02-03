@@ -6,15 +6,15 @@ describe('Login válido', () => {
 
 
     it('Verifica login com sucesso', async () => {
-        await LoginPage.goToLogin()
+        await LoginPage.AcessarLogin();
         await LoginPage.loginApp(EMAIL, SENHA);
         
-        const alertSuccess = await $('//android.widget.TextView[@resource-id="android:id/alertTitle"]');
-        await alertSuccess.waitForExist()
+        const msgSucesso = await $('//android.widget.TextView[@resource-id="android:id/alertTitle"]');
+        await msgSucesso.waitForExist();
         await browser.saveScreenshot('./screenshots/login/loginSucesso.png');
 
-        await expect(alertSuccess).toBeDisplayed();
-        await expect(alertSuccess).toHaveText('Success')
+        await expect(msgSucesso).toBeDisplayed();
+        await expect(msgSucesso).toHaveText('Success')
     });
 
     
