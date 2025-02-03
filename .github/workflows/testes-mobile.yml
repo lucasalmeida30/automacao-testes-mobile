@@ -81,9 +81,9 @@ jobs:
       - name: Run tests
         run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
 
-      - name: Show Appium Logs if Failed
-        if: failure()
-        run: cat appium.log
+      # - name: Show Appium Logs if Failed
+      #   : failure()
+      #   run: cat appium.log
 
 
       # 10. Gerar relatórios do Allure
