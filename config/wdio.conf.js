@@ -21,7 +21,7 @@ exports.config = {
             args: {
                 relaxedSecurity: true,
                 address: 'localhost',
-                port: 4723,
+                port: 4725,
             }
         }]
     ],
