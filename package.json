@@ -27,6 +27,7 @@
     "chai": "^5.1.2",
     "mocha": "^11.1.0",
     "wdio-allure-reporter": "^0.8.3",
+    "wdio-browserstack-service": "^0.1.19",
     "webdriverio": "^9.7.2"
   }
 }

@@ -7,29 +7,26 @@ exports.config = {
     maxInstances: 1,
     specs: ['../tests/**/*.test.js'],
     capabilities: [{
-        maxInstances: 1,
+        'bstack:options': {
+          osVersion: "11.0",
+          deviceName: "Samsung Galaxy S21",
+          realMobile: true,
+          projectName: "automacao-testes-mobile",
+          buildName: "Testes Mobile",
+          sessionName: "Teste Home",
+        },
         'appium:platformName': 'Android',
-        'appium:deviceName': 'emulator-5554',
-        'appium:platformVersion': '11.0',
-        'appium:appPackage': 'com.wdiodemoapp',
-        'appium:appActivity': 'com.wdiodemoapp/.MainActivity',
         'appium:automationName': 'UIAutomator2',
-        'appium:app': path.resolve(process.cwd(), 'app/app-demo.apk'),
-        'appium:autoGrantPermissions': true,
-        'appium:ignoreHiddenApiPolicyError': true,
-        'appium:noReset': false,                // Pode evitar instalações repetidas
-        'appium:fullReset': false
-    }],
-    services: [
-        ['appium', {
-            command: 'appium',
-            args: {
-                relaxedSecurity: true,
-                address: '127.0.0.1',
-                port: 4723,
-            }
-        }]
-    ],
+        'appium:app': 'bs://e06572b51d7fdcdb83e0c96cef61d1688017fd11',  // <-- Vai pegar o APP_ID depois
+        'appium:autoGrantPermissions': true
+      }],
+
+    services: ['browserstack'],
+    user: process.env.BROWSERSTACK_USERNAME || 'lucasalmeidagome_pxcEhB',
+    key: process.env.BROWSERSTACK_ACCESS_KEY || 'NVxE8qJTDAYU5RmDeh16',
+
+
+        
     framework: 'mocha',
     reporters: ['allure'],
     mochaOpts: {

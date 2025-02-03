@@ -1,4 +1,4 @@
-name: Mobile Tests CI
+name: Testes Mobile no BrowserStack
 
 on:
   push:
@@ -11,92 +11,28 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: browser
 
     steps:
-      # 1. Checkout do código
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout do código
+      uses: actions/checkout@v4
 
-      # 2. Instalar Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+    - name: Instalar dependências
+      run: npm install
 
-      # 3. Instalar dependências do npm
-      - name: Install npm dependencies
-        run: npm install
+    - name: Fazer upload do APK para o BrowserStack
+      env:
+        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      run: |
+        response=$(curl -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+          -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+          -F "file=@app/app-demo.apk")
+        app_id=$(echo $response | jq -r '.app_url')
+        echo "APP_ID=$app_id" >> $GITHUB_ENV
 
-      # 4. Configurar o Android SDK
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v2
-
-      # 5. Instalar o Android Emulator
-      - name: Install Android Emulator
-        run: |
-          sdkmanager --install "emulator"
-          sdkmanager --install "system-images;android-30;google_apis;x86"
-          echo "no" | avdmanager create avd -n android-emu -k "system-images;android-30;google_apis;x86" --force
-
-      # 6. Adicionar emulador ao PATH
-      - name: Add emulator to PATH
-        run: |
-          echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
-
-      # 7. Iniciar o Emulador
-      - name: Start Android Emulator
-        run: |
-          emulator -avd android-emu -no-audio -no-window -no-snapshot -gpu swiftshader_indirect -no-accel &
-          adb wait-for-device
-          adb devices
-
-      # **NOVO: Instalar o Appium**
-      - name: Install Appium
-        run: npm install -g appium
-      
-      - name: Update Appium UIAutomator2 Driver
-        run: |
-          appium driver uninstall uiautomator2
-          appium driver install uiautomator2
-
-        
-        # **NOVO: Verificar se o Appium foi instalado**
-      - name: Check Appium Version
-        run: appium -v
-
-      - name: Update SDK Tools
-        run: sdkmanager --update
-
-      # # 8. Iniciar o Appium
-      # - name: Start Appium Server
-      #   run: |
-      #     nohup appium --relaxed-security --address 127.0.0.1 --port 4723 --log appium.log > appium.log 2>&1 &
-      #     sleep 20 # Aguarda um tempo extra para evitar falhas
-      #     curl -s http://127.0.0.1:4723/status
-      #     lsof -i :4723
-
-        
-      # - name: Wait for Emulator to be ready
-      #   run: |
-      #     adb wait-for-device
-      #     sleep 20
-      #     adb shell input keyevent 82  # Desbloqueia a tela do emulador  
-      # 9. Executar os testes
-      - name: Run tests
-        run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
-
-      # - name: Show Appium Logs if Failed
-      #   : failure()
-      #   run: cat appium.log
-
-
-      # 10. Gerar relatórios do Allure
-      - name: Generate Allure Report
-        run: npm run allure-report
-
-      # 11. Publicar o relatório do Allure como artefato
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report/
+    - name: Rodar os testes no BrowserStack
+      env:
+        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      run: npx wdio config/wdio.conf.js
