@@ -52,19 +52,17 @@ jobs:
 
       # **NOVO: Instalar o Appium**
       - name: Install Appium
-        run: npm install -g appium@next
+        run: npm install -g appium
       
-        
-        
-        # **NOVO: Verificar se o Appium foi instalado**
-      - name: Check Appium Version
-        run: appium -v
-        
       - name: Update Appium UIAutomator2 Driver
         run: |
           appium driver uninstall uiautomator2
           appium driver install uiautomator2
-          
+        
+        # **NOVO: Verificar se o Appium foi instalado**
+      - name: Check Appium Version
+        run: appium -v
+
       # 8. Iniciar o Appium
       - name: Start Appium Server
         run: |
