@@ -67,8 +67,8 @@ jobs:
       - name: Start Appium Server
         run: |
           nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
-          sleep 15 # Aguarda um tempo extra para evitar falhas
-          curl -s http://127.0.0.1:4723/session/status
+          sleep 20 # Aguarda um tempo extra para evitar falhas
+          curl -s http://127.0.0.1:4723/status
         
       - name: Wait for Emulator to be ready
         run: |
