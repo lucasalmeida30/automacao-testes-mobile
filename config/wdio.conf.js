@@ -1,7 +1,7 @@
 const path = require('path');
-const appPath = path.resolve(__dirname, '../app/app-demo.apk');
+// const appPath = path.resolve(__dirname, '../app/app-demo.apk');
 
-console.log('Caminho do APK:', appPath);
+// console.log('Caminho do APK:', appPath);
 exports.config = {
     runner: 'local',
     maxInstances: 1,
@@ -14,7 +14,7 @@ exports.config = {
         'appium:appPackage': 'com.wdiodemoapp',
         'appium:appActivity': 'com.wdiodemoapp/.MainActivity',
         'appium:automationName': 'UIAutomator2',
-        'appium:app':  appPath,
+        'appium:app':  '../app/app-demo.apk',
         'appium:autoGrantPermissions': true,
         'appium:ignoreHiddenApiPolicyError': true
     }],
