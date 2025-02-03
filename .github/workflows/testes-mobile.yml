@@ -52,7 +52,7 @@ jobs:
 
       # 9. Executar os testes
       - name: Run tests
-        run: npm test
+        run:  npx wdio config/wdio.conf.js --spec ./tests/
 
       # 10. Gerar relatórios do Allure
       - name: Generate Allure Report
