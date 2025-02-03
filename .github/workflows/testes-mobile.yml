@@ -62,9 +62,14 @@ jobs:
       - name: Start Appium Server
         run: |
           nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
-          sleep 10 # Aguarda um tempo extra para evitar falhas
-          curl http://localhost:4723/status || exit 1 # Verifica se o Appium iniciou corretamente
-
+          sleep 15 # Aguarda um tempo extra para evitar falhas
+          curl -s http://127.0.0.1:4723/status || curl -s http://127.0.0.1:4723/wd/hub/status || exit 1
+        
+      - name: Wait for Emulator to be ready
+        run: |
+          adb wait-for-device
+          sleep 20
+          adb shell input keyevent 82  # Desbloqueia a tela do emulador  
       # 9. Executar os testes
       - name: Run tests
         run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
