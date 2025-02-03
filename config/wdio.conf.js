@@ -14,7 +14,7 @@ exports.config = {
         'appium:appPackage': 'com.wdiodemoapp',
         'appium:appActivity': 'com.wdiodemoapp/.MainActivity',
         'appium:automationName': 'UIAutomator2',
-        'appium:app':  '../app/app-demo.apk',
+        'appium:app': path.resolve(process.cwd(), 'app/app-demo.apk'),
         'appium:autoGrantPermissions': true,
         'appium:ignoreHiddenApiPolicyError': true
     }],
