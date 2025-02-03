@@ -49,7 +49,7 @@ jobs:
 
       # 7. Publicar relatório Allure como artefato
       - name: Publicar relatório Allure
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
