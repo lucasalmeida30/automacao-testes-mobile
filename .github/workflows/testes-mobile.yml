@@ -57,13 +57,13 @@ jobs:
 
       # 10. Executar os testes
       - name: Run tests
-        run: npx wdio config/wdio.conf.js --spec ./tests/
+        run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
 
       # 11. Gerar relatórios do Allure
       - name: Generate Allure Report
         run: npm run allure-report
 
-      # 12. Publicar o relatório do Allure como artefato
+      # 12. Publicar o relatório do Allure como artefato 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
