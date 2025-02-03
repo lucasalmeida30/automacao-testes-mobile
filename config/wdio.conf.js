@@ -1,5 +1,7 @@
 const path = require('path');
+const appPath = path.resolve(__dirname, '../app/app-demo.apk');
 
+console.log('Caminho do APK:', appPath);
 exports.config = {
     runner: 'local',
     maxInstances: 1,
@@ -12,7 +14,7 @@ exports.config = {
         'appium:appPackage': 'com.wdiodemoapp',
         'appium:appActivity': 'com.wdiodemoapp/.MainActivity',
         'appium:automationName': 'UIAutomator2',
-        'appium:app':  path.resolve(__dirname, '../app/app-demo.apk'),
+        'appium:app':  appPath,
         'appium:autoGrantPermissions': true,
         'appium:ignoreHiddenApiPolicyError': true
     }],
@@ -32,7 +34,7 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
-    
+
     afterTest: async function(test, context, { error }) {
         if (error) {
             await browser.takeScreenshot();
