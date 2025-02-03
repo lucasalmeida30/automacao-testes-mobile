@@ -52,7 +52,7 @@ jobs:
 
       # **NOVO: Instalar o Appium**
       - name: Install Appium
-        run: npm install -g appium
+        run: npm install -g appium@next
              appium driver install uiautomator2
 
       # **NOVO: Verificar se o Appium foi instalado**
@@ -63,8 +63,8 @@ jobs:
       - name: Start Appium Server
         run: |
           nohup appium --relaxed-security --address localhost --port 4723 --log appium.log > appium.log 2>&1 &
-          sleep 10 # Aguarda um tempo extra para evitar falhas
-          curl -s http://127.0.0.1:4723/status
+          sleep 15 # Aguarda um tempo extra para evitar falhas
+          curl -s http://127.0.0.1:4723/session/status
         
       - name: Wait for Emulator to be ready
         run: |
@@ -74,6 +74,11 @@ jobs:
       # 9. Executar os testes
       - name: Run tests
         run: npx wdio config/wdio.conf.js --spec ./tests/home/home.test.js
+
+      - name: Show Appium Logs if Failed
+        if: failure()
+        run: cat appium.log
+
 
       # 10. Gerar relatórios do Allure
       - name: Generate Allure Report
