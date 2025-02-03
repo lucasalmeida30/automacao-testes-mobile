@@ -32,6 +32,7 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
+    
     afterTest: async function(test, context, { error }) {
         if (error) {
             await browser.takeScreenshot();
