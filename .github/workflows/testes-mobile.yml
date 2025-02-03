@@ -27,19 +27,18 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      # 4. (Opcional) Instalar ADB caso não esteja disponível
+      # 4. (Opcional) Instalar ADB, caso não esteja disponível
       - name: Instalar ADB
         run: sudo apt-get update && sudo apt-get install -y adb
 
-      # 5. Iniciar Emulador Android e executar testes via input 'script'
+      # 5. Iniciar Emulador Android e Executar Testes
       - name: Iniciar Emulador Android e Executar Testes
         uses: reactivecircus/android-emulator-runner@v2
-        continue-on-error: true
         with:
           api-level: 30
           target: google_apis
           arch: x86_64
-          profile: Nexus_5X
+          profile: pixel_4
           emulator-options: -no-window -gpu swiftshader_indirect
           disable-animations: true
           script: npx wdio ./wdio.conf.js
