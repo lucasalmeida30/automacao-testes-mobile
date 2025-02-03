@@ -67,7 +67,7 @@ jobs:
         run: sdkmanager --update
 
       - name: Install app manually
-        run: adb install -r -g /home/lucas/automacao-testes-mobile/automacao-testes-mobile/app/app-demo.apk
+        run: adb install -r -g /home/lucas/Documentos/automacao-testes-mobile/app/app-demo.apk
 
 
 
