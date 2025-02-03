@@ -58,7 +58,6 @@ jobs:
         run: |
           appium driver uninstall uiautomator2
           appium driver install uiautomator2
-          adb install -g node_modules/appium-uiautomator2-driver/node_modules/io.appium.settings/apks/settings_apk-debug.apk
 
         
         # **NOVO: Verificar se o Appium foi instalado**
