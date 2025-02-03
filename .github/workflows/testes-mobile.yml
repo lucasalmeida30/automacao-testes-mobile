@@ -66,11 +66,6 @@ jobs:
       - name: Update SDK Tools
         run: sdkmanager --update
 
-      - name: Install app manually
-        run: adb install -r -g /home/lucas/Documentos/automacao-testes-mobile/app/app-demo.apk
-
-
-
       # # 8. Iniciar o Appium
       # - name: Start Appium Server
       #   run: |
