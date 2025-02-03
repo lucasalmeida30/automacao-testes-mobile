@@ -21,7 +21,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
 
       # 3. Instalar dependências
       - name: Instalar dependências
@@ -57,7 +57,7 @@ jobs:
 
       # 8. Publicar relatório Allure como artefato
       - name: Publicar relatório Allure
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
