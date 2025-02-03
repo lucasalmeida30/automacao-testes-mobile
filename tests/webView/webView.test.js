@@ -9,6 +9,7 @@ describe('WebView', () => {
         await expect(WebViewPage.menuWeb).toExist();
         await expect(WebViewPage.menuWeb).toBeDisplayed();
 
+        await WebViewPage.btnPesquisar.waitForExist;
         await expect(WebViewPage.btnPesquisar).toExist();
         await expect(WebViewPage.btnPesquisar).toBeDisplayed();
         

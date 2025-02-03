@@ -18,6 +18,7 @@ class WebViewPage {
     async clickLinkWeb() {
         await this.linkWebView.click();
     }
+
 }
 
 export default new WebViewPage();
