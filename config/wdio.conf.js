@@ -12,7 +12,7 @@ exports.config = {
             'appium:deviceName': 'Samsung Galaxy S23',
             'appium:platformVersion': '13.0',
             platformName: 'Android',
-            'appium:app': process.env.APPID,
+            'appium:app': 'bs://f9070221e4c9bbb0fbcf7b1461155550e24afb0d',
             'appium:appPackage': 'com.wdiodemoapp',
             'appium:autoGrantPermissions': true,
             'appium:browserstack.debug': true
