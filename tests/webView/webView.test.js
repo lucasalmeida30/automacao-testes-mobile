@@ -13,11 +13,7 @@ describe('WebView', () => {
         await expect(WebViewPage.menuWeb).toBeDisplayed();
         await browser.saveScreenshot('./screenshots/webView/paginaWebView1.png');
 
-        // await browser.saveScreenshot('./screenshots/webView/paginaWebView2.png');
-        // await WebViewPage.txtTitulo.click();
-        // await expect(WebViewPage.txtTitulo).waitForDisplayed({timeout: 5000});
-        // await expect(WebViewPage.txtTitulo).toExist();
-        // await expect(WebViewPage.txtTitulo).toHaveText('Next-gen browser and mobile automation test framework for Node.js');
+      
 
     });
 

@@ -15,10 +15,12 @@ class WebViewPage {
         return $('//android.view.View[@text="Next-gen browser and mobile automation test framework for Node.js"]');
     }
 
+
     async clickLinkWeb() {
         await this.linkWebView.click();
     }
 
+  
 }
 
 export default new WebViewPage();

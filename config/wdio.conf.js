@@ -1,7 +1,4 @@
-// const path = require('path');
-// const appPath = path.resolve(__dirname, '../app/app-demo.apk');
 
-// console.log('Caminho do APK:', appPath);
 exports.config = {
     runner: 'local',
     maxInstances: 1,
@@ -11,11 +8,11 @@ exports.config = {
 
     capabilities: [
         {
+            platformName: 'Android',
             'appium:automationName': 'UiAutomator2',
             'appium:deviceName': 'Samsung Galaxy S23',
             'appium:platformVersion': '13.0',
-            platformName: 'Android',
-            'appium:app': 'bs://e06572b51d7fdcdb83e0c96cef61d1688017fd11',
+            'appium:app': process.env.APPID,
             'appium:appPackage': 'com.wdiodemoapp',
             'appium:autoGrantPermissions': true,
             'appium:browserstack.debug': true
