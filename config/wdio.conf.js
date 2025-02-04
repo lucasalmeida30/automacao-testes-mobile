@@ -19,8 +19,8 @@ exports.config = {
         }
     ],
 
-    user: process.env.BROWSERSTACK_USERNAME || 'lucasalmeidagome_pxcEhB',
-    key: process.env.BROWSERSTACK_ACCESS_KEY || 'NVxE8qJTDAYU5RmDeh16',
+    user: process.env.BROWSERSTACK_USERNAME || 'lucasalmeida_lzYdMi',
+    key: process.env.BROWSERSTACK_ACCESS_KEY || 'dWNNywuDVR17SWyzvmE8',
 
 
         
