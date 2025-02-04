@@ -36,6 +36,7 @@ exports.config = {
             await browser.takeScreenshot();
         }
     },
+    
     allure: {
         outputDir: 'allure-results',
         disableWebdriverStepsReporting: true,
