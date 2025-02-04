@@ -32,7 +32,7 @@ Os testes cobrem os seguintes cenários:
 1. **Clone o repositório:**
    ```sh
    git clone https://github.com/lucasalmeida30/automacao-testes-mobile.git
-   cd seu-repositorio
+   cd automacao-testes-mobile
    ```
 
 2. **Instale as dependências:**
