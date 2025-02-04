@@ -21,8 +21,6 @@ exports.config = {
 
     user: process.env.BROWSERSTACK_USERNAME || 'lucasalmeida_lzYdMi',
     key: process.env.BROWSERSTACK_ACCESS_KEY || 'dWNNywuDVR17SWyzvmE8',
-
-
         
     framework: 'mocha',
     reporters: ['allure'],
