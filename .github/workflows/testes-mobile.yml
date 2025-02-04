@@ -49,14 +49,8 @@ jobs:
         run: npx allure generate allure-results --clean -o allure-report
 
 
-      - name: Salvar resultados do Allure
-        uses: actions/upload-artifact@v4
+      - name: Publicar relatório no GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          name: allure-results
-          path: allure-results
-
-      - name: Salvar report do Allure
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report 
+          branch: gh-pages
+          folder: allure-report
