@@ -36,9 +36,6 @@ jobs:
           app_id=$(echo $response | jq -r '.app_url')
           echo "APP_ID=$app_id" >> $GITHUB_ENV
   
-      # - name: Verificar variáveis de ambiente (debug)
-      #   run: echo "Username: $BROWSERSTACK_USERNAME, Access Key: $BROWSERSTACK_ACCESS_KEY"
-
       - name: Executar testes no BrowserStack
         env:
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
