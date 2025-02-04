@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: browser  # Nome do ambiente criado no GitHub
+    environment: browser
 
     steps:
       - name: Checkout do código
