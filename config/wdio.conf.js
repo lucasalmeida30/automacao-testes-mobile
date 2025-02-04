@@ -8,10 +8,10 @@ exports.config = {
 
     capabilities: [
         {
-            platformName: 'Android',
             'appium:automationName': 'UiAutomator2',
             'appium:deviceName': 'Samsung Galaxy S23',
             'appium:platformVersion': '13.0',
+            platformName: 'Android',
             'appium:app': process.env.APPID,
             'appium:appPackage': 'com.wdiodemoapp',
             'appium:autoGrantPermissions': true,
