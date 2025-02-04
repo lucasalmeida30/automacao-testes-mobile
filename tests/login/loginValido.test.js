@@ -17,5 +17,4 @@ describe('Login válido', () => {
         await expect(msgSucesso).toHaveText('Success')
     });
 
-    
 });
